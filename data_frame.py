@@ -31,11 +31,14 @@ def get_data_frame(symbol, start_date, end_date, dropna=False):
 def spy_data_frame(start_date, end_date):
   return get_data_frame('SPY', start_date, end_date, dropna=True)
 
-def get_data_frame_for_symbols(symbols, start_date, end_date):
+def get_data_frame_for_symbols(symbols, start_date, end_date, dropspy=False):
   df = spy_data_frame(start_date, end_date)
 
   for symbol in symbols:
     df = add_symbol_to_data_frame(df, symbol)
+
+  if(dropspy == True):
+    df = df.drop('SPY', axis=1)
 
   return df
 
